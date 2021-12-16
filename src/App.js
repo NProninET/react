@@ -26,18 +26,18 @@ function App(props) {
   ));
 
   const taskList = tasks
-.filter(FILTER_MAP[filter])
-.map(task => (
-  <Todo
-    id={task.id}
-    name={task.name}
-    completed={task.completed}
-    key={task.id}
-    toggleTaskCompleted={toggleTaskCompleted}
-    deleteTask={deleteTask}
-    editTask={editTask}
-  />
-));
+    .filter(FILTER_MAP[filter])
+    .map(task => (
+      <Todo
+        id={task.id}
+        name={task.name}
+        completed={task.completed}
+        key={task.id}
+        toggleTaskCompleted={toggleTaskCompleted}
+        deleteTask={deleteTask}
+        editTask={editTask}
+      />
+    ));
 
   function toggleTaskCompleted(id) {
     const updatedTasks = tasks.map((task) => {
@@ -67,7 +67,7 @@ function App(props) {
   }
 
   const tasksNoun = taskList.length !== 1 ? "tasks" : "task";
-  const headingText = `${taskList.length} ${tasksNoun} remaining`;
+  const headingText = `${tasks.filter(task => task.completed == false).length} ${tasksNoun} remaining`;
 
   function addTask(name) {
     const newTask = { id: "todo-" + nanoid(), name: name, completed: false };
