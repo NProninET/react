@@ -16,7 +16,7 @@ function App(props) {
 
   const FILTER_NAMES = Object.keys(FILTER_MAP);
 
-  const filterList = FILTER_NAMES.map(name => (
+  const filterList = FILTER_NAMES.map((name) => (
     <FilterButton
       key={name}
       name={name}
@@ -27,7 +27,7 @@ function App(props) {
 
   const taskList = tasks
     .filter(FILTER_MAP[filter])
-    .map(task => (
+    .map((task) => (
       <Todo
         id={task.id}
         name={task.name}
@@ -58,7 +58,6 @@ function App(props) {
     const editedTaskList = tasks.map((task) => {
       // if this task has the same ID as the edited task
       if (id === task.id) {
-        //
         return { ...task, name: newName };
       }
       return task;
@@ -67,16 +66,28 @@ function App(props) {
   }
 
   const tasksNoun = taskList.length !== 1 ? "tasks" : "task";
-  const headingText = `${tasks.filter(task => task.completed == false).length} ${tasksNoun} remaining`;
+  const headingText = `${
+    tasks.filter((task) => task.completed == false).length
+  } ${tasksNoun} remaining`;
 
   function addTask(name) {
     const newTask = { id: "todo-" + nanoid(), name: name, completed: false };
     setTasks([...tasks, newTask]);
   }
 
+  function doneTodos() {
+    setTasks(tasks.filter((todoItem) => todoItem.completed === false));
+  }
+
+  function chengeCheckbox() {
+    console.log(tasks);
+ }
+
   return (
     <div className="todoapp stack-large">
-      <h1>TodoMatic</h1>
+      {/* <button onClick={handleCheckboxChange}>Сделать выбранными</button> */}
+      
+      <h1>todos</h1>
       <Form addTask={addTask} />
       <div className="filters btn-group stack-exception">{filterList}</div>
       <h2 id="list-heading">{headingText}</h2>
@@ -86,6 +97,8 @@ function App(props) {
         aria-labelledby="list-heading"
       >
         {taskList}
+        <button onClick={doneTodos} >Удалить выполненные</button>
+        <button onClick={chengeCheckbox} >Выбрать все</button>
       </ul>
     </div>
   );

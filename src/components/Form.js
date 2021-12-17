@@ -9,11 +9,13 @@ function Form(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.addTask(name);
-    setName("");
+    if (name.trim()){     
+      props.addTask(name);
+      setName("");
+    }
   }
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} >
       <h2 className="label-wrapper">
         <label htmlFor="new-todo-input" className="label__lg"></label>
       </h2>
@@ -27,9 +29,6 @@ function Form(props) {
         value={name}
         onChange={handleChange}
       />
-      <button type="submit" className="btn btn__primary btn__lg">
-        Add
-        </button>
     </form>
   );
 }
