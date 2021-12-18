@@ -1,12 +1,29 @@
-import React, { useState } from "react";
-import { nanoid } from "nanoid";
+import React, { useState, useEffect } from "react";
 import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
 import Todo from "./components/Todo";
 
-function App(props) {
-  const [tasks, setTasks] = useState(props.tasks);
+function App() {
+  const [tasks, setTasks] = useState([]);
   const [filter, setFilter] = useState("All");
+
+  useEffect(() => {
+    let tasks = [
+      { id: 1, name: "Eat" },
+      { id: 2, name: "Sleep" },
+      { id: 3, name: "Repeat" }
+    ]
+
+    setTasks(
+      tasks.map(task => {
+        return {
+          completed: false,
+          id: task.id,
+          name: task.name,
+        }
+      })
+    )
+  }, [])
 
   const FILTER_MAP = {
     All: () => true,
@@ -66,12 +83,11 @@ function App(props) {
   }
 
   const tasksNoun = taskList.length !== 1 ? "tasks" : "task";
-  const headingText = `${
-    tasks.filter((task) => task.completed == false).length
-  } ${tasksNoun} remaining`;
+  const headingText = `${tasks.filter((task) => task.completed == false).length
+    } ${tasksNoun} remaining`;
 
   function addTask(name) {
-    const newTask = { id: "todo-" + nanoid(), name: name, completed: false };
+    const newTask = { id: Date.now(), name: name, completed: false };
     setTasks([...tasks, newTask]);
   }
 
@@ -79,14 +95,21 @@ function App(props) {
     setTasks(tasks.filter((todoItem) => todoItem.completed === false));
   }
 
-  function chengeCheckbox() {
-    console.log(tasks);
- }
+  function toggleTaskCompleted(id) {
+    const updatedTasks = tasks.map((task) => {
+      if (id === task.id) {
+        return { ...task, completed: !task.completed };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+  }
+
 
   return (
     <div className="todoapp stack-large">
       {/* <button onClick={handleCheckboxChange}>Сделать выбранными</button> */}
-      
+
       <h1>todos</h1>
       <Form addTask={addTask} />
       <div className="filters btn-group stack-exception">{filterList}</div>
@@ -98,9 +121,16 @@ function App(props) {
       >
         {taskList}
         <button onClick={doneTodos} >Удалить выполненные</button>
-        <button onClick={chengeCheckbox} >Выбрать все</button>
+        <button onClick={e => {
+          let checked = e.target.checked;
+          setTasks(tasks.map(d => {
+            d.completed = checked;
+            return { ...d, completed: !d.completed }
+            //  ...d, completed: !d.completed }{
+          }))
+        }} >Выбрать все</button>
       </ul>
-    </div>
+    </div >
   );
 }
 

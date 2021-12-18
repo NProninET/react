@@ -9,17 +9,17 @@ function Form(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (name.trim()){     
+    if (name.trim()) {
       props.addTask(name);
       setName("");
     }
   }
   return (
     <form onSubmit={handleSubmit} >
-      <h2 className="label-wrapper">
+      <div>      <h2 className="label-wrapper">
         <label htmlFor="new-todo-input" className="label__lg"></label>
-      </h2>
-      <input
+      </h2></div>
+      <div>      <input
         type="text"
         id="new-todo-input"
         placeholder="What needs to be done?"
@@ -28,7 +28,8 @@ function Form(props) {
         autoComplete="off"
         value={name}
         onChange={handleChange}
-      />
+      /></div>
+
     </form>
   );
 }
