@@ -79,11 +79,10 @@ function Todo(props) {
     <li className="todo stack-small">
       <div className="c-cb">
         <div>
-          {/* {" "} */}
           <input
             id={props.id}
             type="checkbox"
-            defaultChecked={props.completed}
+            checked={props.completed}
             onChange={() => props.toggleTaskCompleted(props.id)}
           />
         </div>

@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 
-// console.log(DATA[1].completed)
+const DATA = [
+  { id: 1, name: 'lololo', completed: false }
+]
 
 ReactDOM.render(
-  <App />,
+  <App tasks={DATA} />,
   document.getElementById('root')
 );

@@ -1,29 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
 import Todo from "./components/Todo";
 
-function App() {
-  const [tasks, setTasks] = useState([]);
+function App(props) {
+  const [tasks, setTasks] = useState(props.tasks);
   const [filter, setFilter] = useState("All");
-
-  useEffect(() => {
-    let tasks = [
-      { id: 1, name: "Eat" },
-      { id: 2, name: "Sleep" },
-      { id: 3, name: "Repeat" }
-    ]
-
-    setTasks(
-      tasks.map(task => {
-        return {
-          completed: false,
-          id: task.id,
-          name: task.name,
-        }
-      })
-    )
-  }, [])
 
   const FILTER_MAP = {
     All: () => true,
@@ -73,7 +55,6 @@ function App() {
 
   function editTask(id, newName) {
     const editedTaskList = tasks.map((task) => {
-      // if this task has the same ID as the edited task
       if (id === task.id) {
         return { ...task, name: newName };
       }
@@ -87,7 +68,7 @@ function App() {
     } ${tasksNoun} remaining`;
 
   function addTask(name) {
-    const newTask = { id: Date.now(), name: name, completed: false };
+    const newTask = { id: "todo-" + nanoid(), name: name, completed: false };
     setTasks([...tasks, newTask]);
   }
 
@@ -105,11 +86,17 @@ function App() {
     setTasks(updatedTasks);
   }
 
+  function checkAll(e) {
+    let checked = e.target.checked;
+    setTasks(tasks.map(d => {
+      d.completed = checked;
+      return { ...d, completed: d.completed }
+    }
+    ))
+  }
 
   return (
     <div className="todoapp stack-large">
-      {/* <button onClick={handleCheckboxChange}>Сделать выбранными</button> */}
-
       <h1>todos</h1>
       <Form addTask={addTask} />
       <div className="filters btn-group stack-exception">{filterList}</div>
@@ -121,16 +108,9 @@ function App() {
       >
         {taskList}
         <button onClick={doneTodos} >Удалить выполненные</button>
-        <button onClick={e => {
-          let checked = e.target.checked;
-          setTasks(tasks.map(d => {
-            d.completed = checked;
-            return { ...d, completed: !d.completed }
-            //  ...d, completed: !d.completed }{
-          }))
-        }} >Выбрать все</button>
+        <input type="checkbox" onClick={checkAll}></input>
       </ul>
-    </div >
+    </div>
   );
 }
 
