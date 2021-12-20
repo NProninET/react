@@ -34,88 +34,13 @@ body {
 	font-weight: 300;
 }
 
-input[type="checkbox"] {
-    display: none;
-}
-
-.allToggler {
-    position: absolute;
-    top: 80px;
-}
-
-input[type="checkbox"] + label {
-    font: 18px bold;
-    color: #444;
-    cursor: pointer;
-  }
-
-  input[type="checkbox"] + label::before {
-    content: "";
-    display: inline-block;
-    height: 18px;
-    width: 18px;
-    margin: 0 5px 0 5px;
-    border-radius: 25px;
-    border: 1px solid gray;
-}
-
-input[type="checkbox"]:checked + label:before {
-    content: "";
-    display: inline-block;
-    height: 18px;
-    width: 18px;
-    margin: 0 5px 0 5px;
-    border-radius: 25px;
-    border: 1px solid gray;
-    background-image: url(/public/checked.png);
-}
-
-.todo-label:checked {
-    text-decoration: line-through;
-}
-
 li {
     list-style-type: none;
 }
 
-
-
-#icon-checkbox + label {
-  font: 18px bold;
-  color: #444;
-  cursor: pointer;
-}
-
-#icon-checkbox + label::before {
-    content: "";
-    display: inline-block;
-    height: 25px;
-    width: 30px;
-    margin: 0 5px;
-    background-image: url(/public/chevron_down.png);
-    background-repeat: no-repeat;
-    border: none;
-    position:absolute;
-    top: 75px;
-}
-
-#icon-checkbox + label:checked {
-    content: "";
-    display: inline-block;
-    height: 25px;
-    width: 30px;
-    margin: 0 5px;
-    background-image: url(/public/111.png);
-    background-repeat: no-repeat;
-    border: none;
-    position:absolute;
-    top: 75px;
-}
-
-
 input[type="text"]:focus {
     font-family: 'Roboto', sans-serif;
-    font-weight: 600;
+    font-weight: 300;
     font-size: 1.5rem;
 }
 
@@ -157,11 +82,6 @@ button:hover {
     padding-left: 40px;
 }
 
-.hide {
-    display: none;
-}
-
-
 :focus {
 	outline: 0;
 }
@@ -192,9 +112,7 @@ button:hover {
     background-repeat: no-repeat;
 }
 
-/* input[type="checkbox"].danger-icon + label::before */
 .todo-danger {
-    /* visibility: hidden; */
     content: "";
     display: inline-block;
     height: 25px;
@@ -206,22 +124,106 @@ button:hover {
     top: 75px;
     opacity: 0;
     z-index: -1;
-    /* display: none; */
 }
 
-.todo-item:hover > input[type="checkbox"] + label::before {
+.todo-item:hover + label::before {
     display: none;
 }
 
 .todo-item:hover > .todo-danger {
     opacity: 1;
     z-index: 1;
-    /* display: block; */
 }
 
-.todo-item > input {
-    height: 80%;
+#icon-checkbox {
+    display: none;
+}
+
+#icon-checkbox:not(:checked) + label:before,
+#icon-checkbox:checked + label:before{
+    position: absolute;
+    color: gray;
+	border-style: solid;
+	border-width: 0.25em 0.25em 0 0;
+	content: '';
+	display: inline-block;
+	height: 0.7em;
+	left: 0.15em;
+	position: absolute;
+	top: 80px;
+    left: 10px;
+	transform: rotate(135deg);
+	vertical-align: top;
+	width: 0.70em;
+}
+
+#icon-checkbox:checked + label:after{
+    position: absolute;
+    color: black;
+	border-style: solid;
+	border-width: 0.25em 0.25em 0 0;
+	content: '';
+	display: inline-block;
+	height: 0.7em;
+	left: 0.15em;
+	position: absolute;
+	top: 80px;
+    left: 10px;
+	transform: rotate(135deg);
+	vertical-align: top;
+	width: 0.70em;
+}
+
+#icon-checkbox:not(:checked) + label::after {
+    opacity: 0;
+transform: scale(0);
+}
+
+.todo-text {
     width: 100%;
+    height: 80%;
     border: none;
     padding-left: 40px;
+
+}
+
+.custom-checkbox {
+    position: relative;
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    border: 1px solid gray;
+    border-radius: 20px;
+    margin-right: 5px;
+    margin-left: 5px;
+    vertical-align: sub;
+}
+
+.custom-checkbox::before {
+    content: "";
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    background-image: url('/public/check.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    margin-top: 1px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 0.2s ease-in;
+}
+
+.todo-item-checkbox:checked + .custom-checkbox::before {
+    transform: translate(-50%, -50%) scale(1);
+
+}
+
+.todo-item-checkbox:checked + label:checked {
+    text-decoration: line-through;
+}
+
+.todo-item-checkbox {
+display: none;
 }

@@ -64,9 +64,8 @@ function App(props) {
   }
 
   const tasksNoun = taskList.length !== 1 ? "items" : "item";
-  const headingText = `${
-    tasks.filter((task) => task.completed == false).length
-  } ${tasksNoun} left`;
+  const headingText = `${tasks.filter((task) => task.completed == false).length
+    } ${tasksNoun} left`;
 
   function addTask(name) {
     const newTask = { id: Date.now(), name: name, completed: false };
@@ -97,19 +96,10 @@ function App(props) {
     );
   }
 
-  // function addBobo() {
-  //   const footer = document.querySelector('.main-buttons')
-  //   if(tasks.length <= 0) {
-  //     return footer
-  //   }
-  // }
-
-
-
   return (
     <div className="todoapp stack-large">
       <h1 className="todosHeader">todos </h1>
-      
+
       <ul
         role="list"
         className="todo-list"
@@ -118,7 +108,7 @@ function App(props) {
         <Form addTask={addTask} />
         {taskList}
         {
-          tasks.length ? 
+          tasks.length ?
             <div className="main-buttons">
               <div>{headingText}</div>
               <div className="filter-buttons">{filterList}</div>
@@ -127,19 +117,13 @@ function App(props) {
             :
             <div></div>
         }
-       {/* <div className="main-buttons">
-         <div>{headingText}</div>
-         <div className="filter-buttons">{filterList}</div>
-         <button onClick={doneTodos}>Clear completed</button>
-       </div> */}
-       {
-          tasks.length ?
-<div>
-                    <input type="checkbox" id="icon-checkbox" className="allToggler" onClick={checkAll}></input>
-                    <label className="todo-label-icon" htmlFor="icon-checkbox"></label>
-                    </div>
-                    :
-<div></div>
+        {tasks.length ?
+          <div>
+            <input type="checkbox" id="icon-checkbox" className="allToggler" onClick={checkAll}></input>
+            <label className="chevron-bottom" htmlFor="icon-checkbox"></label>
+          </div>
+          :
+          <div></div>
         }
       </ul>
     </div>

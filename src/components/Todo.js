@@ -10,12 +10,15 @@ function Todo(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.editTask(props.id, newName);
-    setNewName("");
-    setEditing(false);
-  }
+    if (newName === '') {
+      setEditing(false)
+    } else {
 
-  // onClick={() => setEditing(false)}
+      props.editTask(props.id, newName);
+      setNewName("");
+      setEditing(false);
+    }
+  }
 
   const editingTemplate = (
     <form className="todo-edit" onSubmit={handleSubmit}>
@@ -26,7 +29,7 @@ function Todo(props) {
         <input
           id={props.id}
           className="todo-text"
-          placeholder={props.name}
+          // placeholder={props.name}
           type="text"
           value={newName}
           onChange={handleChange}
@@ -37,18 +40,18 @@ function Todo(props) {
 
   const viewTemplate = (
     <div className="todo-item" onDoubleClick={() => setEditing(true)}>
-      <div>
+      <label className="todo-item-label" htmlFor={props.id}>
         <input
           id={props.id}
           type="checkbox"
-          className="todo-item-check"
+          className="todo-item-checkbox"
           checked={props.completed}
           onChange={() => props.toggleTaskCompleted(props.id)}
         />
-        <label className="todo-label" htmlFor={props.id}>
-          {props.name}
-        </label>
-      </div>
+        <span class="custom-checkbox"></span>
+        {props.name}
+      </label>
+
       <input id={props.id} type="checkbox" className="danger-icon"></input>
       <label
         className="todo-danger"
