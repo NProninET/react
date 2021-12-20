@@ -15,99 +15,50 @@ function Todo(props) {
     setEditing(false);
   }
 
-  // const editingTemplate = (
-  //   <form className="stack-small" onSubmit={handleSubmit}>
-  //     <div className="form-group">
-  //       <label className="todo-label" htmlFor={props.id}>
-  //         New name {newName} for {props.name}
-  //       </label>
-  //       <input
-  //         id={props.id}
-  //         className="todo-text"
-  //         type="text"
-  //         value={newName}
-  //         onChange={handleChange}
-  //       />
-  //     </div>
-  //     <div className="btn-group">
-  //       <button
-  //         type="button"
-  //         className="btn todo-cancel"
-  //         onClick={() => setEditing(false)}
-  //       >
-  //         Cancel
-  //         <span className="visually-hidden">renaming {props.name}</span>
-  //       </button>
-  //       <button type="submit" className="btn btn__primary todo-edit">
-  //         Save
-  //         <span className="visually-hidden">new name for {props.name}</span>
-  //       </button>
-  //     </div>
-  //   </form>
-  // );
+  // onClick={() => setEditing(false)}
 
-  // const viewTemplate = (
-  //   <div className="stack-small">
-  //     <div className="c-cb">
-  //       <input
-  //         id={props.id}
-  //         type="checkbox"
-  //         defaultChecked={props.completed}
-  //         onChange={() => props.toggleTaskCompleted(props.id)}
-  //       />
-  //       <label className="todo-label" htmlFor={props.id}>
-  //         {props.name}
-  //       </label>
-  //     </div>
-  //     <div className="btn-group">
-  //       <button type="button" className="btn" onDoubleClick={() => setEditing(true)}>
-  //         Edit <span className="visually-hidden">{props.name}</span>
-  //       </button>
-  //       <button
-  //         type="button"
-  //         className="btn btn__danger"
-  //         onClick={() => props.deleteTask(props.id)}
-  //       >
-  //         Delete <span className="visually-hidden">{props.name}</span>
-  //       </button>
-  //     </div>
-  //   </div>
-  // );
-
-  return (
-    // <li className="todo">{isEditing ? editingTemplate : viewTemplate}</li>
-    <li className="todo stack-small">
-      <div className="c-cb">
-        <div>
-          <input
-            id={props.id}
-            type="checkbox"
-            checked={props.completed}
-            onChange={() => props.toggleTaskCompleted(props.id)}
-          />
-        </div>
-
-        <div>{props.name}</div>
-        {/* <input {props.name} type="text" /> */}
-        {/* <label className="todo-label" htmlFor={props.id}>
-          {props.name}
-        </label> */}
+  const editingTemplate = (
+    <form className="todo-edit" onSubmit={handleSubmit}>
+      <div className="todo-item">
+        <label className="todo-label" htmlFor={props.id} >
+          {/* {props.name} */}
+        </label>
+        <input
+          id={props.id}
+          className="todo-text"
+          placeholder={props.name}
+          type="text"
+          value={newName}
+          onChange={handleChange}
+        />
       </div>
-      <div></div>
-      {/* <div className="btn-group">
-        <button type="button" className="btn">
-          Edit <span className="visually-hidden">{props.name}</span>
-        </button>
-        <button
-          type="button"
-          className="btn btn__danger"
-          onClick={() => props.deleteTask(props.id)}
-        >
-          Delete <span className="visually-hidden">{props.name}</span>
-        </button>
-      </div> */}
-    </li>
+    </form>
   );
+
+  const viewTemplate = (
+    <div className="todo-item" onDoubleClick={() => setEditing(true)}>
+      <div>
+        <input
+          id={props.id}
+          type="checkbox"
+          className="todo-item-check"
+          checked={props.completed}
+          onChange={() => props.toggleTaskCompleted(props.id)}
+        />
+        <label className="todo-label" htmlFor={props.id}>
+          {props.name}
+        </label>
+      </div>
+      <input id={props.id} type="checkbox" className="danger-icon"></input>
+      <label
+        className="todo-danger"
+        htmlFor={props.id}
+        onClick={() => props.deleteTask(props.id)}
+      ></label>
+    </div>
+  );
+
+  return <li className="todo">{isEditing ? editingTemplate : viewTemplate}</li>;
 }
 
 export default Todo;

@@ -63,12 +63,13 @@ function App(props) {
     setTasks(editedTaskList);
   }
 
-  const tasksNoun = taskList.length !== 1 ? "tasks" : "task";
-  const headingText = `${tasks.filter((task) => task.completed == false).length
-    } ${tasksNoun} remaining`;
+  const tasksNoun = taskList.length !== 1 ? "items" : "item";
+  const headingText = `${
+    tasks.filter((task) => task.completed == false).length
+  } ${tasksNoun} left`;
 
   function addTask(name) {
-    const newTask = { id: "todo-" + nanoid(), name: name, completed: false };
+    const newTask = { id: Date.now(), name: name, completed: false };
     setTasks([...tasks, newTask]);
   }
 
@@ -88,27 +89,58 @@ function App(props) {
 
   function checkAll(e) {
     let checked = e.target.checked;
-    setTasks(tasks.map(d => {
-      d.completed = checked;
-      return { ...d, completed: d.completed }
-    }
-    ))
+    setTasks(
+      tasks.map((d) => {
+        d.completed = checked;
+        return { ...d, completed: d.completed };
+      })
+    );
   }
+
+  // function addBobo() {
+  //   const footer = document.querySelector('.main-buttons')
+  //   if(tasks.length <= 0) {
+  //     return footer
+  //   }
+  // }
+
+
 
   return (
     <div className="todoapp stack-large">
-      <h1>todos</h1>
-      <Form addTask={addTask} />
-      <div className="filters btn-group stack-exception">{filterList}</div>
-      <h2 id="list-heading">{headingText}</h2>
+      <h1 className="todosHeader">todos </h1>
+      
       <ul
         role="list"
-        className="todo-list stack-large stack-exception"
+        className="todo-list"
         aria-labelledby="list-heading"
       >
+        <Form addTask={addTask} />
         {taskList}
-        <button onClick={doneTodos} >Удалить выполненные</button>
-        <input type="checkbox" onClick={checkAll}></input>
+        {
+          tasks.length ? 
+            <div className="main-buttons">
+              <div>{headingText}</div>
+              <div className="filter-buttons">{filterList}</div>
+              <button onClick={doneTodos}>Clear completed</button>
+            </div>
+            :
+            <div></div>
+        }
+       {/* <div className="main-buttons">
+         <div>{headingText}</div>
+         <div className="filter-buttons">{filterList}</div>
+         <button onClick={doneTodos}>Clear completed</button>
+       </div> */}
+       {
+          tasks.length ?
+<div>
+                    <input type="checkbox" id="icon-checkbox" className="allToggler" onClick={checkAll}></input>
+                    <label className="todo-label-icon" htmlFor="icon-checkbox"></label>
+                    </div>
+                    :
+<div></div>
+        }
       </ul>
     </div>
   );

@@ -1,0 +1,227 @@
+* {
+	margin: 0;
+	padding: 0;
+    box-sizing: border-box;
+}
+
+button {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	font-size: 100%;
+	vertical-align: baseline;
+	font-family: inherit;
+	font-weight: inherit;
+	color: inherit;
+	-webkit-appearance: none;
+	appearance: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    position:relative;
+	font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	line-height: 1.4em;
+	background: #f5f5f5;
+	color: #4d4d4d;
+	min-width: 230px;
+	max-width: 550px;
+	margin: 0 auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-weight: 300;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+.allToggler {
+    position: absolute;
+    top: 80px;
+}
+
+input[type="checkbox"] + label {
+    font: 18px bold;
+    color: #444;
+    cursor: pointer;
+  }
+
+  input[type="checkbox"] + label::before {
+    content: "";
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    margin: 0 5px 0 5px;
+    border-radius: 25px;
+    border: 1px solid gray;
+}
+
+input[type="checkbox"]:checked + label:before {
+    content: "";
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    margin: 0 5px 0 5px;
+    border-radius: 25px;
+    border: 1px solid gray;
+    background-image: url(/public/checked.png);
+}
+
+.todo-label:checked {
+    text-decoration: line-through;
+}
+
+li {
+    list-style-type: none;
+}
+
+
+
+#icon-checkbox + label {
+  font: 18px bold;
+  color: #444;
+  cursor: pointer;
+}
+
+#icon-checkbox + label::before {
+    content: "";
+    display: inline-block;
+    height: 25px;
+    width: 30px;
+    margin: 0 5px;
+    background-image: url(/public/chevron_down.png);
+    background-repeat: no-repeat;
+    border: none;
+    position:absolute;
+    top: 75px;
+}
+
+#icon-checkbox + label:checked {
+    content: "";
+    display: inline-block;
+    height: 25px;
+    width: 30px;
+    margin: 0 5px;
+    background-image: url(/public/111.png);
+    background-repeat: no-repeat;
+    border: none;
+    position:absolute;
+    top: 75px;
+}
+
+
+input[type="text"]:focus {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+::placeholder {
+    font-family: 'Roboto', sans-serif;
+    font-style: italic;
+    font-weight: 600;
+    color: #edefef;
+    font-size: 1.5rem;
+  }
+
+.todo-item {
+    height: 70px;
+    width: 100%;
+    border-top: 0.5px solid rgb(163, 163, 163);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.todo-list {
+    box-shadow: 4px 4px 8px -6px rgba(34, 60, 80, 1);
+    background-color: white;
+}
+
+button {
+    border-radius: 2px;
+}
+
+button:hover {
+    border: 1px solid red
+}
+
+.input_form {
+    background-color: #fefefe;
+    border: none;
+    height: 60px;
+    width: 100%;
+    padding-left: 40px;
+}
+
+.hide {
+    display: none;
+}
+
+
+:focus {
+	outline: 0;
+}
+
+.main-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter-buttons {
+
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.todosHeader {
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    margin-top: 30px;
+    height: 60px;
+    font-size: 80px;
+    color: #ead8d8;
+}
+
+.danger-icon{
+    display: none;
+    content: "";
+    background-repeat: no-repeat;
+}
+
+/* input[type="checkbox"].danger-icon + label::before */
+.todo-danger {
+    /* visibility: hidden; */
+    content: "";
+    display: inline-block;
+    height: 25px;
+    width: 30px;
+    margin: 0 5px;
+    background-image: url(/public/cross.png);
+    background-repeat: no-repeat;
+    border: none;
+    top: 75px;
+    opacity: 0;
+    z-index: -1;
+    /* display: none; */
+}
+
+.todo-item:hover > input[type="checkbox"] + label::before {
+    display: none;
+}
+
+.todo-item:hover > .todo-danger {
+    opacity: 1;
+    z-index: 1;
+    /* display: block; */
+}
+
+.todo-item > input {
+    height: 80%;
+    width: 100%;
+    border: none;
+    padding-left: 40px;
+}

@@ -16,19 +16,19 @@ function Form(props) {
   }
   return (
     <form onSubmit={handleSubmit} >
-      <div>      <h2 className="label-wrapper">
+      <div>
         <label htmlFor="new-todo-input" className="label__lg"></label>
-      </h2></div>
-      <div>      <input
+     <input
         type="text"
         id="new-todo-input"
         placeholder="What needs to be done?"
-        className="input input__lg"
+        className="input_form"
         name="text"
         autoComplete="off"
         value={name}
         onChange={handleChange}
-      /></div>
+      />
+      </div>
 
     </form>
   );
