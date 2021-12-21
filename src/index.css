@@ -18,6 +18,7 @@ button {
 	appearance: none;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+    box-shadow: 0px -5px 0px 0px rgba(255, 255, 255, 0.6) inset;
 }
 
 body {
@@ -74,6 +75,10 @@ button:hover {
     border: 1px solid red
 }
 
+.black-chevron {
+    color: black
+}
+
 .input_form {
     background-color: #fefefe;
     border: none;
@@ -89,12 +94,6 @@ button:hover {
 .main-buttons {
     display: flex;
     justify-content: space-between;
-}
-
-.filter-buttons {
-
-    display: flex;
-    justify-content: space-evenly;
 }
 
 .todosHeader {
@@ -217,11 +216,7 @@ transform: scale(0);
 
 .todo-item-checkbox:checked + .custom-checkbox::before {
     transform: translate(-50%, -50%) scale(1);
-
-}
-
-.todo-item-checkbox:checked + label:checked {
-    text-decoration: line-through;
+    
 }
 
 .todo-item-checkbox {

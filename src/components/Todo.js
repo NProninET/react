@@ -13,7 +13,6 @@ function Todo(props) {
     if (newName === '') {
       setEditing(false)
     } else {
-
       props.editTask(props.id, newName);
       setNewName("");
       setEditing(false);
@@ -23,13 +22,22 @@ function Todo(props) {
   const editingTemplate = (
     <form className="todo-edit" onSubmit={handleSubmit}>
       <div className="todo-item">
+      <label className="todo-item-label" htmlFor={props.id}>
+        <input
+          id={props.id}
+          type="checkbox"
+          className="todo-item-checkbox"
+          checked={props.completed}
+          onChange={() => props.toggleTaskCompleted(props.id)}
+        />
+        <span className="custom-checkbox"></span>
+      </label>
         <label className="todo-label" htmlFor={props.id} >
-          {/* {props.name} */}
         </label>
         <input
           id={props.id}
           className="todo-text"
-          // placeholder={props.name}
+          placeholder={props.name}
           type="text"
           value={newName}
           onChange={handleChange}
@@ -48,7 +56,7 @@ function Todo(props) {
           checked={props.completed}
           onChange={() => props.toggleTaskCompleted(props.id)}
         />
-        <span class="custom-checkbox"></span>
+        <span className="custom-checkbox"></span>
         {props.name}
       </label>
 

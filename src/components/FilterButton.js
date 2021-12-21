@@ -6,6 +6,7 @@ function FilterButton(props) {
         type="button"
         aria-pressed={props.isPressed}
         onClick={() => props.setFilter(props.name)}
+        className="filtered-buttons"
       >
       {props.name}
       </button>

@@ -38,16 +38,6 @@ function App(props) {
       />
     ));
 
-  function toggleTaskCompleted(id) {
-    const updatedTasks = tasks.map((task) => {
-      if (id === task.id) {
-        return { ...task, completed: !task.completed };
-      }
-      return task;
-    });
-    setTasks(updatedTasks);
-  }
-
   function deleteTask(id) {
     const remainingTasks = tasks.filter((task) => id !== task.id);
     setTasks(remainingTasks);
@@ -64,8 +54,9 @@ function App(props) {
   }
 
   const tasksNoun = taskList.length !== 1 ? "items" : "item";
-  const headingText = `${tasks.filter((task) => task.completed == false).length
-    } ${tasksNoun} left`;
+  const headingText = `${
+    tasks.filter((task) => task.completed === false).length
+  } ${tasksNoun} left`;
 
   function addTask(name) {
     const newTask = { id: Date.now(), name: name, completed: false };
@@ -86,45 +77,55 @@ function App(props) {
     setTasks(updatedTasks);
   }
 
-  function checkAll(e) {
-    let checked = e.target.checked;
-    setTasks(
-      tasks.map((d) => {
-        d.completed = checked;
-        return { ...d, completed: d.completed };
-      })
-    );
+  function checkAll() {
+    const checked = tasks.some((c) => c.completed === true);
+    const notChecked = tasks.every((c) => c.completed === false);
+    const abcChecked = tasks.every((c) => c.completed === true);
+
+    if (abcChecked) {
+      setTasks(
+        tasks.map((d) => {
+          return { ...d, completed: false };
+        })
+      );
+    } else if (checked || notChecked) {
+      setTasks(
+        tasks.map((d) => {
+          return { ...d, completed: true };
+        })
+      );
+    }
   }
 
   return (
     <div className="todoapp stack-large">
       <h1 className="todosHeader">todos </h1>
 
-      <ul
-        role="list"
-        className="todo-list"
-        aria-labelledby="list-heading"
-      >
+      <ul role="list" className="todo-list" aria-labelledby="list-heading">
         <Form addTask={addTask} />
         {taskList}
-        {
-          tasks.length ?
-            <div className="main-buttons">
-              <div>{headingText}</div>
-              <div className="filter-buttons">{filterList}</div>
-              <button onClick={doneTodos}>Clear completed</button>
-            </div>
-            :
-            <div></div>
-        }
-        {tasks.length ?
+        {tasks.length ? (
+          <div className="main-buttons">
+            <div>{headingText}</div>
+            <div className="filter-buttons">{filterList}</div>
+            <button onClick={doneTodos}>Clear completed</button>
+          </div>
+        ) : (
+          <div></div>
+        )}
+        {tasks.length ? (
           <div>
-            <input type="checkbox" id="icon-checkbox" className="allToggler" onClick={checkAll}></input>
+            <input
+              type="checkbox"
+              id="icon-checkbox"
+              className="allToggler"
+              onClick={checkAll}
+            ></input>
             <label className="chevron-bottom" htmlFor="icon-checkbox"></label>
           </div>
-          :
+        ) : (
           <div></div>
-        }
+        )}
       </ul>
     </div>
   );
