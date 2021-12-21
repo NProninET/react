@@ -71,6 +71,7 @@ function App(props) {
     const updatedTasks = tasks.map((task) => {
       if (id === task.id) {
         return { ...task, completed: !task.completed };
+        
       }
       return task;
     });
@@ -82,13 +83,15 @@ function App(props) {
     const notChecked = tasks.every((c) => c.completed === false);
     const abcChecked = tasks.every((c) => c.completed === true);
 
+    // let checkcheck = document.querySelector('.chevron-bottom')
+
     if (abcChecked) {
       setTasks(
-        tasks.map((d) => {
+        tasks.map((d) => { 
           return { ...d, completed: false };
         })
       );
-    } else if (checked || notChecked) {
+      } else if (checked || notChecked) {
       setTasks(
         tasks.map((d) => {
           return { ...d, completed: true };
@@ -106,9 +109,9 @@ function App(props) {
         {taskList}
         {tasks.length ? (
           <div className="main-buttons">
-            <div>{headingText}</div>
+            <div className="heading-text">{headingText}</div>
             <div className="filter-buttons">{filterList}</div>
-            <button onClick={doneTodos}>Clear completed</button>
+            <button className="clear-all"onClick={doneTodos}>Clear completed</button>
           </div>
         ) : (
           <div></div>

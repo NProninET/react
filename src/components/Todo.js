@@ -2,20 +2,22 @@ import React, { useState } from "react";
 
 function Todo(props) {
   const [isEditing, setEditing] = useState(false);
-  const [newName, setNewName] = useState("");
+  const [newName, setNewName] = useState(props.name);
+  const [name, setName] = useState(props.name);
 
   function handleChange(e) {
-    setNewName(e.target.value);
+    setNewName(e.target.value)
   }
 
   function handleSubmit(e) {
     e.preventDefault();
     if (newName === '') {
       setEditing(false)
+      setName(name)
     } else {
       props.editTask(props.id, newName);
-      setNewName("");
       setEditing(false);
+      setName(newName)
     }
   }
 
@@ -37,10 +39,10 @@ function Todo(props) {
         <input
           id={props.id}
           className="todo-text"
-          placeholder={props.name}
           type="text"
-          value={newName}
           onChange={handleChange}
+          value={newName}
+          onBlur={() => setEditing(false)}
         />
       </div>
     </form>
@@ -69,7 +71,7 @@ function Todo(props) {
     </div>
   );
 
-  return <li className="todo">{isEditing ? editingTemplate : viewTemplate}</li>;
+  return <li className="todo-item-2" onDoubleClick={() => setEditing(true)} completed={props.completed ? "true" : "false"}>{isEditing ? editingTemplate : viewTemplate}</li>;
 }
 
 export default Todo;

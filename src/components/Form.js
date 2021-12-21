@@ -16,7 +16,7 @@ function Form(props) {
   }
   return (
     <form onSubmit={handleSubmit} >
-      <div>
+      <div className="juju">
         <label htmlFor="new-todo-input" className="label__lg"></label>
      <input
         type="text"
