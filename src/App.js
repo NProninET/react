@@ -54,9 +54,8 @@ function App(props) {
   }
 
   const tasksNoun = taskList.length !== 1 ? "items" : "item";
-  const headingText = `${
-    tasks.filter((task) => task.completed === false).length
-  } ${tasksNoun} left`;
+  const headingText = `${tasks.filter((task) => task.completed === false).length
+    } ${tasksNoun} left`;
 
   function addTask(name) {
     const newTask = { id: Date.now(), name: name, completed: false };
@@ -71,11 +70,23 @@ function App(props) {
     const updatedTasks = tasks.map((task) => {
       if (id === task.id) {
         return { ...task, completed: !task.completed };
-        
+
       }
       return task;
     });
     setTasks(updatedTasks);
+  }
+
+  function changeChevronColor() {
+    let chevron = document.querySelector('.chevron-bottom')
+    const completedTasks = tasks.every((c) => c.completed === true)
+
+    if (completedTasks) {
+      chevron.classList.add('black-chevron')
+      chevron.classList.remove('gray-chevron')
+    } else {
+      chevron.classList.add('gray-chevron')
+    }
   }
 
   function checkAll() {
@@ -83,27 +94,27 @@ function App(props) {
     const notChecked = tasks.every((c) => c.completed === false);
     const abcChecked = tasks.every((c) => c.completed === true);
 
-    // let checkcheck = document.querySelector('.chevron-bottom')
-
     if (abcChecked) {
       setTasks(
-        tasks.map((d) => { 
+        tasks.map((d) => {
           return { ...d, completed: false };
         })
       );
-      } else if (checked || notChecked) {
+    } else if (checked || notChecked) {
       setTasks(
         tasks.map((d) => {
           return { ...d, completed: true };
         })
+
       );
     }
   }
 
+  changeChevronColor()
+
   return (
     <div className="todoapp stack-large">
       <h1 className="todosHeader">todos </h1>
-
       <ul role="list" className="todo-list" aria-labelledby="list-heading">
         <Form addTask={addTask} />
         {taskList}
@@ -111,7 +122,7 @@ function App(props) {
           <div className="main-buttons">
             <div className="heading-text">{headingText}</div>
             <div className="filter-buttons">{filterList}</div>
-            <button className="clear-all"onClick={doneTodos}>Clear completed</button>
+            <button className="clear-all" onClick={doneTodos}>Clear completed</button>
           </div>
         ) : (
           <div></div>
@@ -124,7 +135,7 @@ function App(props) {
               className="allToggler"
               onClick={checkAll}
             ></input>
-            <label className="chevron-bottom" htmlFor="icon-checkbox"></label>
+            <label className="chevron-bottom gray-chevron" htmlFor="icon-checkbox"></label>
           </div>
         ) : (
           <div></div>

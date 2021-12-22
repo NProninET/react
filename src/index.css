@@ -85,10 +85,6 @@ button:focus {
   border: 2px solid #ead8d8;
 }
 
-.black-chevron {
-  color: black;
-}
-
 .filtered-buttons {
     display: inline-flex;
     justify-content: space-between;
@@ -164,19 +160,17 @@ button:focus {
 }
 
 .todo-list {
-    background: #fff;
-    box-shadow:
-      0 1px 1px rgba(0,0,0,0.15),
-      0 10px 0 -5px #fff,
-      0 10px 1px -4px rgba(0,0,0,0.15),
-      0 20px 0 -10px #fff,
-      0 20px 1px -9px rgba(0,0,0,0.15);
-  }
+  background: #fff;
+  box-shadow:
+    0 1px 1px rgba(0,0,0,0.15),
+    0 10px 0 -5px #fff,
+    0 10px 1px -4px rgba(0,0,0,0.15),
+    0 20px 0 -10px #fff,
+    0 20px 1px -9px rgba(0,0,0,0.15);
+}
 
-#icon-checkbox:not(:checked) + label:before,
-#icon-checkbox:checked + label:before {
+#icon-checkbox:not(:checked) + label:before{
   position: absolute;
-  color: gray;
   border-style: solid;
   border-width: 0.25em 0.25em 0 0;
   content: "";
@@ -191,9 +185,8 @@ button:focus {
   width: 0.7em;
 }
 
-/* #icon-checkbox:checked + label:after {
+#icon-checkbox:checked + label:after {
   position: absolute;
-  color: black;
   border-style: solid;
   border-width: 0.25em 0.25em 0 0;
   content: "";
@@ -206,9 +199,9 @@ button:focus {
   transform: rotate(135deg);
   vertical-align: top;
   width: 0.7em;
-} */
+} 
 
-#icon-checkbox:not(:checked) + label::after {
+ #icon-checkbox:not(:checked) + label::after {
   opacity: 0;
   transform: scale(0);
 }
@@ -250,9 +243,11 @@ button:focus {
 .todo-item-checkbox:checked + .custom-checkbox::before {
   transform: translate(-50%, -50%) scale(1);
 }
+
 .todo-item-checkbox {
   display: none;
 }
+
 li[completed="false"] label {
 color: black;
 font-size: 22px;
@@ -262,4 +257,12 @@ li[completed="true"] label {
     font-size: 22px;
     color: gray;
     text-decoration: line-through;
+}
+
+.black-chevron {
+  color: black
+}
+
+.gray-chevron {
+  color: gray;
 }
