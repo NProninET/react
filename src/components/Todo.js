@@ -7,17 +7,18 @@ function Todo(props) {
 
   function handleChange(e) {
     setNewName(e.target.value)
+    setName(e.target.value)
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (newName === '') {
-      setEditing(false)
+    if (newName.trim() === '') {
       setName(name)
+      setEditing(false)
     } else {
       props.editTask(props.id, newName);
-      setEditing(false);
       setName(newName)
+      setEditing(false);
     }
   }
 
@@ -43,6 +44,8 @@ function Todo(props) {
           onChange={handleChange}
           value={newName}
           onBlur={() => setEditing(false)}
+          autoFocus={true}
+          autoComplete="off"
         />
       </div>
     </form>

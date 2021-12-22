@@ -6,6 +6,15 @@ import Todo from "./components/Todo";
 function App(props) {
   const [tasks, setTasks] = useState(props.tasks);
   const [filter, setFilter] = useState("All");
+  const [checked, setChecked] = useState(false);
+
+  function changeChevronColor() {
+    const completedTasks = tasks.every((c) => c.completed === true);
+    console.log(completedTasks);
+    if (completedTasks) {
+      setChecked(true);
+    }
+  }
 
   const FILTER_MAP = {
     All: () => true,
@@ -54,8 +63,9 @@ function App(props) {
   }
 
   const tasksNoun = taskList.length !== 1 ? "items" : "item";
-  const headingText = `${tasks.filter((task) => task.completed === false).length
-    } ${tasksNoun} left`;
+  const headingText = `${
+    tasks.filter((task) => task.completed === false).length
+  } ${tasksNoun} left`;
 
   function addTask(name) {
     const newTask = { id: Date.now(), name: name, completed: false };
@@ -70,24 +80,33 @@ function App(props) {
     const updatedTasks = tasks.map((task) => {
       if (id === task.id) {
         return { ...task, completed: !task.completed };
-
       }
       return task;
     });
+
     setTasks(updatedTasks);
-  }
 
-  function changeChevronColor() {
-    let chevron = document.querySelector('.chevron-bottom')
-    const completedTasks = tasks.every((c) => c.completed === true)
-
+    const completedTasks = updatedTasks.every((c) => c.completed === true);
     if (completedTasks) {
-      chevron.classList.add('black-chevron')
-      chevron.classList.remove('gray-chevron')
+      setChecked(true);
     } else {
-      chevron.classList.add('gray-chevron')
+      setChecked(false);
     }
   }
+
+  const black = (
+    <label
+      className="chevron-bottom black-chevron"
+      htmlFor="icon-checkbox"
+    ></label>
+  );
+
+  const gray = (
+    <label
+      className="chevron-bottom gray-chevron"
+      htmlFor="icon-checkbox"
+    ></label>
+  );
 
   function checkAll() {
     const checked = tasks.some((c) => c.completed === true);
@@ -95,25 +114,24 @@ function App(props) {
     const abcChecked = tasks.every((c) => c.completed === true);
 
     if (abcChecked) {
+      setChecked(false);
       setTasks(
         tasks.map((d) => {
           return { ...d, completed: false };
         })
       );
     } else if (checked || notChecked) {
+      setChecked(true);
       setTasks(
         tasks.map((d) => {
           return { ...d, completed: true };
         })
-
       );
     }
   }
 
-  changeChevronColor()
-
   return (
-    <div className="todoapp stack-large">
+    <>
       <h1 className="todosHeader">todos </h1>
       <ul role="list" className="todo-list" aria-labelledby="list-heading">
         <Form addTask={addTask} />
@@ -122,7 +140,9 @@ function App(props) {
           <div className="main-buttons">
             <div className="heading-text">{headingText}</div>
             <div className="filter-buttons">{filterList}</div>
-            <button className="clear-all" onClick={doneTodos}>Clear completed</button>
+            <button className="clear-all" onClick={doneTodos}>
+              Clear completed
+            </button>
           </div>
         ) : (
           <div></div>
@@ -135,13 +155,13 @@ function App(props) {
               className="allToggler"
               onClick={checkAll}
             ></input>
-            <label className="chevron-bottom gray-chevron" htmlFor="icon-checkbox"></label>
+            {checked ? black : gray}
           </div>
         ) : (
           <div></div>
         )}
       </ul>
-    </div>
+    </>
   );
 }
 
